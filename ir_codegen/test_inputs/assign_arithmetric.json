@@ -1,0 +1,19 @@
+{
+  "type": "Program",
+  "body": [
+    {
+      "type": "VariableDeclaration",
+      "declarations": [
+        {
+          "id": { "name": "x" },
+          "init": {
+            "type": "BinaryExpression",
+            "operator": "+",
+            "left": { "name": "a" },
+            "right": { "name": "b" }
+          }
+        }
+      ]
+    }
+  ]
+}

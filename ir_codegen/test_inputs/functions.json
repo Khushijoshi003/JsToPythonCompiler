@@ -1,0 +1,25 @@
+{
+    "type": "Program",
+    "body": [
+      {
+        "type": "FunctionDeclaration",
+        "id": { "name": "greet" },
+        "params": [{ "name": "name" }],
+        "body": {
+          "type": "BlockStatement",
+          "body": [
+            {
+              "type": "ReturnStatement",
+              "argument": {
+                "type": "BinaryExpression",
+                "operator": "+",
+                "left": { "value": "Hi ", "type": "StringLiteral" },
+                "right": { "name": "name", "type": "Identifier" }
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+  

@@ -1,0 +1,15 @@
+{
+    "type": "Program",
+    "body": [
+      {
+        "type": "VariableDeclaration",
+        "declarations": [
+          {
+            "id": { "name": "name" },
+            "init": { "type": "StringLiteral", "value": "Diya" }
+          }
+        ]
+      }
+    ]
+  }
+  

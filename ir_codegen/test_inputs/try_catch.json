@@ -1,0 +1,38 @@
+{
+    "type": "Program",
+    "body": [
+      {
+        "type": "TryStatement",
+        "block": {
+          "type": "BlockStatement",
+          "body": [
+            {
+              "type": "ExpressionStatement",
+              "expression": {
+                "type": "CallExpression",
+                "callee": { "name": "risky" },
+                "arguments": []
+              }
+            }
+          ]
+        },
+        "handler": {
+          "param": { "name": "e" },
+          "body": {
+            "type": "BlockStatement",
+            "body": [
+              {
+                "type": "ExpressionStatement",
+                "expression": {
+                  "type": "CallExpression",
+                  "callee": { "name": "handle" },
+                  "arguments": [{ "name": "e" }]
+                }
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
+  
