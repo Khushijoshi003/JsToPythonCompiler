@@ -1,63 +1,49 @@
-// Get the form and input elements
-const registerForm = document.querySelector("form");
-const usernameInput = document.getElementById("username");
-const emailInput = document.getElementById("email");
-const passwordInput = document.getElementById("password");
-const confirmPasswordInput = document.getElementById("confirm-password");
+document.querySelector("form").addEventListener("submit", async function (e) {
+  e.preventDefault();
 
-// Handle form submission
-registerForm.addEventListener("submit", function(event) {
-  // Prevent the default form submission
-  event.preventDefault();
+  const username = document.getElementById("username").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value;
+  const confirmPassword = document.getElementById("confirm-password").value;
 
-  // Clear any previous error messages
-  const errorMessages = document.querySelectorAll(".error-message");
-  errorMessages.forEach(message => message.remove());
-
-  // Check if all fields are filled
-  if (usernameInput.value.trim() === "") {
-    displayError(usernameInput, "Username is required.");
+  // Email validation
+  const emailPattern = /\S+@\S+\.\S+/;
+  if (!emailPattern.test(email)) {
+    alert("Please enter a valid email address.");
     return;
   }
 
-  if (emailInput.value.trim() === "") {
-    displayError(emailInput, "Email is required.");
+  // Check if password matches
+  if (password !== confirmPassword) {
+    alert("Passwords do not match.");
     return;
   }
 
-  if (passwordInput.value.trim() === "") {
-    displayError(passwordInput, "Password is required.");
+  // Password strength check (at least 6 characters for simplicity)
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters long.");
     return;
   }
 
-  if (confirmPasswordInput.value.trim() === "") {
-    displayError(confirmPasswordInput, "Please confirm your password.");
-    return;
+  try {
+    const response = await fetch("http://localhost:5000/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username, email, password })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert("Registration successful! Redirecting to login...");
+      window.location.href = "login.html"; // Redirect to login page after successful registration
+    } else {
+      alert(data.message); // Show any server-side error message
+    }
+  } catch (err) {
+    console.error("Error:", err);
+    alert("Something went wrong. Please try again later.");
   }
-
-  // Check if password and confirm password match
-  if (passwordInput.value !== confirmPasswordInput.value) {
-    displayError(confirmPasswordInput, "Passwords do not match.");
-    return;
-  }
-
-  // If everything is valid, you can submit the form (or make an AJAX request)
-  // For now, we'll just log the inputs to the console
-  console.log("Form Submitted:");
-  console.log("Username:", usernameInput.value);
-  console.log("Email:", emailInput.value);
-  console.log("Password:", passwordInput.value);
-
-  // Clear the form (optional)
-  registerForm.reset();
 });
-
-// Function to display error messages
-function displayError(inputElement, message) {
-  const errorMessage = document.createElement("div");
-  errorMessage.classList.add("error-message");
-  errorMessage.textContent = message;
-
-  inputElement.classList.add("input-error");
-  inputElement.insertAdjacentElement("afterend", errorMessage);
-}
