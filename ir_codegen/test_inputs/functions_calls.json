@@ -1,0 +1,14 @@
+{
+    "type": "Program",
+    "body": [
+      {
+        "type": "ExpressionStatement",
+        "expression": {
+          "type": "CallExpression",
+          "callee": { "name": "print" },
+          "arguments": [{ "name": "x" }]
+        }
+      }
+    ]
+  }
+  
