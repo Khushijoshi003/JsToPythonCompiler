@@ -29,7 +29,6 @@
       </div>
     </form>
   </div>
-<<<<<<< HEAD:public/login.html
 
   <script>
     document.getElementById('loginForm').addEventListener('submit', async function(e) {
@@ -38,28 +37,29 @@
       const username = document.getElementById('username').value.trim();
       const password = document.getElementById('password').value;
 
-      const res = await fetch('http://localhost:3000/api/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-      });
+      try {
+        const res = await fetch('http://localhost:3000/api/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ username, password })
+        });
 
-      const data = await res.json();
+        const data = await res.json();
 
-      if (res.ok) {
-        alert('Login successful!');
-        // Redirect or load another page if needed
-        window.location.href = 'home.html'; // example
-      } else {
-        alert(data.message || 'Login failed');
+        if (res.ok) {
+          alert('Login successful!');
+          window.location.href = 'home.html'; // Redirect after login
+        } else {
+          alert(data.message || 'Login failed');
+        }
+      } catch (error) {
+        console.error("Login error:", error);
+        alert("An error occurred during login. Please try again.");
       }
     });
   </script>
 
-=======
-  <script src="login.js"></script>
->>>>>>> 4bb399595f1568df3b0d5a90c8cb827d5c136e5a:login.html
 </body>
 </html>
