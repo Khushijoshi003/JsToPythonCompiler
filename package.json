@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "name": "jstopythoncompiler",
   "version": "1.0.0",
   "description": "",
@@ -24,5 +25,14 @@
     "express": "^5.1.0",
     "moo": "^0.5.2",
     "mysql2": "^3.14.1"
+=======
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.1"
+>>>>>>> 4bb399595f1568df3b0d5a90c8cb827d5c136e5a
   }
 }
