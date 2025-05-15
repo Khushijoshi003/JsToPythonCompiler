@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JS to Python Compiler</title>
+  <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="logo">JS ➡ Python Compiler</div>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="result.html">Result</a></li>
+      <li><a href="../how-it-works.html">How It Works</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="register.html">Register</a></li>
+    </ul>
+  </nav>
+
+  <!-- Main Content -->
+  <div class="main-container">
+    <!-- JS Input Editor -->
+    <div class="editor">
+      <h3>JavaScript Code</h3>
+      <textarea id="js-input" placeholder="Enter your JavaScript code here..."></textarea>
+    </div>
+
+    <!-- Output Section -->
+    <div class="output">
+      <h3>Compilation Steps</h3>
+      <div class="tabs">
+        <div class="tab-buttons">
+          <button class="active" onclick="showTab('token')">Tokenization</button>
+          <button onclick="showTab('syntax')">Syntax Analysis</button>
+          <button onclick="showTab('ast')">AST</button>
+          <button onclick="showTab('python')">Python Code</button>
+        </div>
+        <div class="tab-content" id="token">[Tokenization output will appear here]</div>
+        <div class="tab-content" id="syntax" style="display:none">[Syntax analysis output]</div>
+        <div class="tab-content" id="ast" style="display:none">[AST output]</div>
+        <div class="tab-content" id="python" style="display:none">[Converted Python code]</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="actions">
+    <button type="button" class="convert-btn" onclick="convertCode()">Convert</button>
+    <button class="clear-btn" onclick="clearEditors()">Clear</button>
+    <button onclick="copyOutput()">Copy Output</button>
+    <button onclick="downloadOutput()">Download</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div>
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="terms.html">Terms</a> |
+      <a href="https://github.com/Khushijoshi003/JsToPythonCompiler.git">GitHub</a> |
+      <a href="#">Feedback</a>
+    </div>
+    <br>
+    <p> Version 1.0</p>
+  </footer>
+
+  <script src="home.js"></script>
+</body>
+</html>

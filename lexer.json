@@ -1,0 +1,22 @@
+[
+  {
+    "type": "keyword",
+    "value": "let"
+  },
+  {
+    "type": "identifier",
+    "value": "x"
+  },
+  {
+    "type": "assign",
+    "value": "="
+  },
+  {
+    "type": "number",
+    "value": "75423"
+  },
+  {
+    "type": "semicolon",
+    "value": ";"
+  }
+]
