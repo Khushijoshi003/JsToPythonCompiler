@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>JS to Python Compiler</title>
+  <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <!-- Add Axios CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+
+  <nav>
+    <div class="logo">JS ➡ Python Compiler</div>
+    <ul>
+      <li><a href="home.html">Home</a></li>
+      <li><a href="result.html">Result</a></li>
+      <li><a href="how-it-works.html">How It Works</a></li>
+      <li><a href="login.html">Login</a></li>
+      <li><a href="register.html">Register</a></li>
+    </ul>
+  </nav>
+
+  
+  <div class="main-container">
+    <div class="editor">
+      <h3>JavaScript Code</h3>
+      <textarea id="js-input" placeholder="Enter your JavaScript code here..."></textarea>
+    </div>
+
+    <div class="output">
+      <h3>Compilation Steps</h3>
+      <div class="tabs">
+        <div class="tab-buttons">
+          <button class="active" onclick="showTab('token')">Tokenization</button>
+          <button onclick="showTab('ast')">AST</button>
+          <button onclick="showTab('ir')">IR</button>
+          <button onclick="showTab('python')">Python Code</button>
+        </div>
+        <div class="tab-content" id="token">[Tokenization output will appear here]</div>
+        <div class="tab-content" id="ast" style="display:none">[AST output]</div>
+        <div class="tab-content" id="ir" style="display:none">[IR output]</div>
+        <div class="tab-content" id="python" style="display:none">[Converted Python code]</div>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="actions">
+    <button type="button" class="convert-btn" onclick="convertCode()">Convert</button>
+    <button class="clear-btn" onclick="clearEditors()">Clear</button>
+    <button onclick="copyOutput()">Copy Output</button>
+    <button onclick="downloadOutput()">Download</button>
+  </div>
+
+
+  <footer>
+    <div>
+      <a href="privacy.html">Privacy Policy</a> |
+      <a href="terms.html">Terms</a> |
+      <a href="https://github.com/Khushijoshi003/JsToPythonCompiler.git">GitHub</a> |
+      <a href="#">Feedback</a>
+    </div>
+    <br>
+    <p> Version 1.0</p>
+  </footer>
+
+  <script>
+    function showTab(tabId) {
+      const tabs = document.querySelectorAll('.tab-content');
+      tabs.forEach(tab => {
+        tab.style.display = tab.id === tabId ? 'block' : 'none';
+      });
+
+      const buttons = document.querySelectorAll('.tab-buttons button');
+      buttons.forEach(btn => {
+        btn.classList.toggle('active', btn.textContent.toLowerCase().includes(tabId));
+      });
+    }
+
+   async function convertCode() {
+  const code = document.getElementById("js-input").value.trim();
+  if (!code) {
+    alert("Please enter JavaScript code to convert!");
+    return;
+  }
+
+  try {
+    const response = await axios.post('http://localhost:5000/convert', {
+      code: code
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    const result = response.data;
+
+    document.getElementById('token').innerText = result.tokens ? JSON.stringify(result.tokens, null, 2) : "[No token output]";
+    document.getElementById('ast').innerText = JSON.stringify(result.ast, null, 2) || "[No AST output]";
+    document.getElementById('ir').innerText = JSON.stringify(result.ir, null, 2) || "[No IR output]";
+    document.getElementById('python').innerText = result.python || "[No Python code output]";
+
+    showTab('token');
+
+  } catch (error) {
+    console.error('Conversion failed:', error);
+    const errorMessage = error.response?.data?.error || error.message;
+    alert(`Conversion failed: ${errorMessage}`);
+  }
+}
+
+
+    function clearEditors() {
+      document.getElementById("js-input").value = "";
+      document.getElementById("token").innerText = "[Tokenization output will appear here]";
+      document.getElementById("ast").innerText = "[AST output]";
+      document.getElementById("ir").innerText = "[IR output]";
+      document.getElementById("python").innerText = "[Converted Python code]";
+    }
+
+    function copyOutput() {
+      const token = document.getElementById('token').innerText;
+      const ast = document.getElementById('ast').innerText;
+      const ir = document.getElementById('ir').innerText;
+      const python = document.getElementById('python').innerText;
+
+      const combinedText = 
+        `Tokenization:\n${token}\n\nAST:\n${ast}\n\nIR:\n${ir}\n\nPython Code:\n${python}`;
+
+      navigator.clipboard.writeText(combinedText).then(() => {
+        alert("Output copied to clipboard!");
+      }, () => {
+        alert("Failed to copy output.");
+      });
+    }
+
+    function downloadOutput() {
+      const pythonCode = document.getElementById('python').innerText;
+      const blob = new Blob([pythonCode], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'converted_code.py';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    }
+  </script>
+</body>
+</html>
