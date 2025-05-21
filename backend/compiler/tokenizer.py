@@ -60,7 +60,7 @@ def lexer(js_code):
     for match in reversed(matches):
         js_code = js_code[:match.start()] + js_code[match.end():]
 
-    # --- Enhanced if-else if-else block detection ---
+    # --- if-else ---
     if_else_chain_pattern = re.compile(
         r'if\s*\((.*?)\)\s*\{(.*?)\}'              # Match initial if
         r'((?:\s*else\s+if\s*\(.*?\)\s*\{.*?\})*)'  # Match zero or more else if
@@ -167,8 +167,4 @@ def lexer(js_code):
         else:
             tokens.append({'type': 'unknown', 'code': line})
         
-    tokens.sort(key=lambda x: x.get('start', float('inf')))
-    for t in tokens:
-        t.pop('start', None)  # Remove position metadata
-
     return tokens
