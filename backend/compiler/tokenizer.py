@@ -2,7 +2,6 @@ import re
 # -----------------------
 # STAGE 1: Lexer
 # -----------------------
-
 def lexer(js_code):
     tokens = []
     js_code = js_code.strip()
@@ -129,7 +128,6 @@ def lexer(js_code):
     for match in reversed(matches):
         js_code = js_code[:match.start()] + js_code[match.end():]
 
-
     # 6. Declarations and console.log
     lines = [line.strip() for line in js_code.split(';') if line.strip()]
     for line in lines:
@@ -164,7 +162,6 @@ def lexer(js_code):
                 'variable': var_name,
                 'value': value
             })
-
         else:
             tokens.append({'type': 'unknown', 'code': line})
     return tokens
