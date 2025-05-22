@@ -2,6 +2,7 @@
 # STAGE 4: Python Generator
 # -----------------------
 import re
+
 def generate_python(ir, indent=0):
     lines = []
     indent_str = '    ' * indent

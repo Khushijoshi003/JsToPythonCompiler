@@ -2,6 +2,7 @@ import re
 # -----------------------
 # STAGE 1: Lexer
 # -----------------------
+
 def lexer(js_code):
     tokens = []
     js_code = js_code.strip()
@@ -166,5 +167,4 @@ def lexer(js_code):
 
         else:
             tokens.append({'type': 'unknown', 'code': line})
-        
     return tokens
