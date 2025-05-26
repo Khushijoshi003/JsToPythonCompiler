@@ -51,7 +51,6 @@ def generate_python(ir, indent=0):
                 var = init.split('=')[0].strip()
                 start = int(init.split('=')[1].strip())
 
-                import re
                 # Match condition like: i <= 5, i < 6, i >= 1, i > 0
                 m = re.match(rf"{var}\s*([<>]=?)\s*(-?\d+)", cond)
                 if m:
